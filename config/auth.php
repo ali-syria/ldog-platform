@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'ldog',
         ],
 
         'api' => [
@@ -70,7 +70,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
+        'ldog'=>[
+            'driver'=>'ldog'
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
