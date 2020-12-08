@@ -5,17 +5,29 @@
         </x-slot>
     </x-admin.layouts.sidebar-link>
 
+    @if(locale()->organization instanceof \AliSyria\LDOG\OrganizationManager\Cabinet)
     <x-admin.layouts.sidebar-link title="Ministries & Agencies"  href="" :active="Request::is('admin/cabinet-organizations*')">
         <x-slot name="icon">
             <x-icons.heroicon-o-office-building class="w-4 h-4" viewBox="0 0 20 20"/>
         </x-slot>
     </x-admin.layouts.sidebar-link>
+    @endif
 
-    <x-admin.layouts.sidebar-link title="Branches & Departments"  href="" :active="Request::is('admin/sectors*')">
+    @if(locale()->organization instanceof \AliSyria\LDOG\OrganizationManager\Institution || locale()->organization instanceof \AliSyria\LDOG\OrganizationManager\IndependentAgency)
+    <x-admin.layouts.sidebar-link title="Branches"  href="" :active="Request::is('admin/sectors*')">
         <x-slot name="icon">
             <x-icons.heroicon-o-office-building class="w-4 h-4"/>
         </x-slot>
     </x-admin.layouts.sidebar-link>
+    @endif
+
+    @if(!(locale()->organization instanceof \AliSyria\LDOG\Contracts\OrganizationManager\DataSourceOrganizationContract))
+        <x-admin.layouts.sidebar-link title="Departments"  href="" :active="Request::is('admin/sectors*')">
+            <x-slot name="icon">
+                <x-icons.css-tikcode class="w-4 h-4"/>
+            </x-slot>
+        </x-admin.layouts.sidebar-link>
+    @endif
 
     <x-admin.layouts.sidebar-link-collection title="Modeling" :active="Request::is('modeling*')">
         <x-slot name="icon">

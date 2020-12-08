@@ -12,7 +12,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../Laravel Packages/LDOGFramework",
-                "reference": "60f8d0e0d8354a9e71cc838ed45392d6f2e99fb9"
+                "reference": "230bf02868dbd623cbe88a427f600dd0514fdc9e"
             },
             "require": {
                 "easyrdf/easyrdf": "^1.0",
@@ -44,13 +44,15 @@
             "autoload": {
                 "psr-4": {
                     "AliSyria\\LDOG\\": "src"
-                }
+                },
+                "files": [
+                    "src/Utilities/helpers.php"
+                ]
             },
             "autoload-dev": {
                 "psr-4": {
                     "AliSyria\\LDOG\\Tests\\": "tests"
-                },
-                "files": []
+                }
             },
             "license": [
                 "MIT"

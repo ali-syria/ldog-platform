@@ -10,7 +10,9 @@
             >
                 {{ config('app.name') }}
             </a>
-
+            <a href="{{ locale()->organization->getUri() }}" target="_blank">
+                <p class="ml-9 text-sm text-purple-500 hover:text-indigo-900">{{ locale()->organization->getName() }}</p>
+            </a>
             <ul class="mt-6">
                 {{ $slot }}
             </ul>
@@ -46,6 +48,9 @@
                 href="#"
             >
                 {{ config('app.name') }}
+            </a>
+            <a href="{{ locale()->organization->getUri() }}" target="_blank">
+                <p class="ml-9 text-sm text-purple-500 hover:text-indigo-900">{{ locale()->organization->getName() }}</p>
             </a>
             <ul class="mt-6">
                 {{ $slot }}
