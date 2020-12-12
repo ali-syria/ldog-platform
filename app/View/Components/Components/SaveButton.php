@@ -1,20 +1,20 @@
 <?php
 
-namespace App\View\Components\Admin\Layouts;
+namespace App\View\Components\Components;
 
 use Illuminate\View\Component;
 
-class Sidebar extends Component
+class SaveButton extends Component
 {
-    public string $appName;
+    public string $liveTarget;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $liveTarget)
     {
-        $this->appName=setting('app_name');
+        $this->liveTarget=$liveTarget;
     }
 
     /**
@@ -24,6 +24,6 @@ class Sidebar extends Component
      */
     public function render()
     {
-        return view('components.admin.layouts.sidebar');
+        return view('components.components.save-button');
     }
 }

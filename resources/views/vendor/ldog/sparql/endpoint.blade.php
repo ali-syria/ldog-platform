@@ -17,7 +17,7 @@
     <script>
         const yasgui = new Yasgui(document.getElementById("yasgui"), {
             requestConfig: { endpoint: "{{ route('ldog.sparql') }}" },
-            copyEndpointOnNewTab: false
+            copyEndpointOnNewTab: false,
         });
         const yasqe=yasgui.getTab().yasqe;
         yasqe.addPrefixes({ ldog: "{{ \AliSyria\LDOG\UriBuilder\UriBuilder::PREFIX_LDOG }}" });

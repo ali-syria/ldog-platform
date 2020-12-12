@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Livewire\Admin\Branches;
+use App\Http\Livewire\Admin\CabinetOrganizations;
+use App\Http\Livewire\Admin\Departments;
+use App\Http\Livewire\Admin\Instituations;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Livewire\Auth\Passwords\Email;
@@ -26,9 +30,6 @@ Route::view('/', 'welcome')->name('home');
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
         ->name('login');
-
-    Route::get('register', Register::class)
-        ->name('register');
 });
 
 Route::get('password/reset', Email::class)
@@ -53,8 +54,18 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', LogoutController::class)
         ->name('logout');
+
+    Route::prefix('admin')->name('admin.')->group(function(){
+        Route::view('dashboard','admin.pages.dashboard')
+            ->name('dashboard');
+        Route::get('cabinet-organizations',CabinetOrganizations::class)
+            ->name('cabinetOrganizations.index');
+        Route::get('departments',Departments::class)
+            ->name('departments.index');
+        Route::get('instituations',Instituations::class)
+            ->name('instituations.index');
+        Route::get('branches',Branches::class)
+            ->name('branches.index');
+    });
 });
 
-Route::prefix('admin')->group(function(){
-    Route::view('dashboard','admin.pages.dashboard')->name('admin.dashboard');
-});

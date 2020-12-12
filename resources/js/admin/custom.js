@@ -4,7 +4,7 @@ const livewire=window.livewire;
 
 const Toast = Swal.mixin({
     toast: true,
-    // position: backend.langDir=='ltr'?'top-end':'top-start',
+    position: 'top-end',
     showConfirmButton: false,
     timer: 6000,
     timerProgressBar: true,

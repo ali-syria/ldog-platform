@@ -10,13 +10,16 @@
     "require": {
         "php": "^7.4",
         "alisyria/ldog-framework": "dev-master",
+        "bensampo/laravel-enum": "^3.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel-frontend-presets/tall": "^2.1",
         "laravel/framework": "^8.12",
+        "laravel/telescope": "^4.3",
         "laravel/tinker": "^2.5",
-        "livewire/livewire": "^2.3"
+        "livewire/livewire": "^2.3",
+        "spatie/laravel-queueable-action": "^2.9"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

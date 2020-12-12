@@ -11,6 +11,10 @@
             <main class="h-full overflow-y-auto">
                 <div class="container px-6 mx-auto grid">
                     @yield('content')
+
+                    @isset($slot)
+                        {{ $slot }}
+                    @endisset
                 </div>
             </main>
         </div>

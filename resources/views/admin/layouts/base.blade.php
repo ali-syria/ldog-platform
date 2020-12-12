@@ -11,7 +11,7 @@
         @endif
 
         <!-- Favicon -->
-		<link rel="shortcut icon" href="{{ url(asset(config('custom.panel.logo_tiny'))) }}">
+		<link rel="shortcut icon" href="{{ url(asset('logo.svg')) }}">
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
@@ -45,7 +45,6 @@
         @yield('body')
 
 
-        @shared
         @livewireScripts
         <script src="{{ url(mix('js/admin/app.js')) }}"></script>
         <script src="{{ mix('js/admin/scripts.js') }}" ></script>
