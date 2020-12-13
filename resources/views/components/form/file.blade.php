@@ -11,7 +11,7 @@
                         </svg>
                         <span class="mt-2 text-base leading-normal">Select a file</span>
                         <span wire:loading wire:target="{{ $liveName }}" class="block text-indigo-300 mt-2">Uploading ...</span>
-                        <input type="file" name="{{ $liveName }}"  id="{{ $liveName }}" {{ $attributes->merge(['class'=>'hidden'])  }}  wire:model="{{ $liveName }}" accept="{{ $mimeType }}">
+                        <input type="file" name="{{ $liveName }}"  id="{{ $liveName }}" {{ $attributes->merge(['class'=>'hidden'])  }}  wire:model.defer="{{ $liveName }}" accept="{{ $mimeType }}">
                     </label>
                 </div>
                 @error($liveName)

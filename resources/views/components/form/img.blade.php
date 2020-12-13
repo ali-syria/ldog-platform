@@ -11,7 +11,7 @@
                         </svg>
                         <span class="mt-2 text-base leading-normal">Select an image</span>
                         <span wire:loading wire:target="{{ $liveName }}" class="block text-indigo-300 mt-2">Uploading ...</span>
-                        <input type="file" name="{{ $liveName }}"  id="{{ $liveName }}" class="hidden"  wire:model="{{ $liveName }}" accept="image/*">
+                        <input type="file" name="{{ $liveName }}"  id="{{ $liveName }}" class="hidden"  wire:model.defer="{{ $liveName }}" accept="image/*">
                     </label>
                     @error($liveName)
                     <span class="text-xs text-red-600 px-1">{{ $message }}</span>

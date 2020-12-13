@@ -6,6 +6,7 @@ use App\Actions\StoreCabinetOrganizationAction;
 use App\Enums\CabinetOrganizationType;
 use App\Enums\Operation;
 use BenSampo\Enum\Rules\EnumValue;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -59,6 +60,11 @@ class CabinetOrganizations extends Component
     }
     public function updated($propertyName)
     {
+        if(is_string($this->$propertyName))
+        {
+            $this->$propertyName=(string)Str::of($this->$propertyName)->trim();
+        }
+
         $this->validateOnly($propertyName);
     }
     public function create()
@@ -101,6 +107,8 @@ class CabinetOrganizations extends Component
             $this->employeePassword
         );
 
+        $this->resetInputFields();
+        $this->resetValidation();
         $this->emit('success',$action->getSuccessMessage());
     }
     public function getCabinetOrganizationTypesProperty()
@@ -109,7 +117,7 @@ class CabinetOrganizations extends Component
     }
     public function getOrganizationsProperty()
     {
-        return locale()->organization->childOrganizations();
+        return locale()->organization->cabinetOrganizations();
     }
     public function render()
     {

@@ -7,11 +7,11 @@
 @endphp
 @if($type=="textarea")
     <textarea name="{{ $name }}" id="{{ $id }}" {{ $attributes->merge(['class'=>"form-input mt-1 block w-full $langClasses"]) }}
-        wire:model.lazy="{{ $liveName }}"></textarea>
+        wire:model.defer="{{ $liveName }}"></textarea>
 @else
     <input type="{{ $type }}" name="{{ $name }}" id="{{ $id }}"
            {{ $attributes->merge(['class'=>"form-input mt-1 block w-full $langClasses"]) }}
-           wire:model.lazy="{{ $liveName }}"
+           wire:model.defer="{{ $liveName }}"
     >
 @endif
 @unless($withoutErrors)

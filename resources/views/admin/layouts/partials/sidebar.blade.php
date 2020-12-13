@@ -38,29 +38,30 @@
     </x-admin.layouts.sidebar-link>
     @endif
 
+@if(locale()->organization instanceof \AliSyria\LDOG\Contracts\OrganizationManager\ModellingOrganizationContract)
+<x-admin.layouts.sidebar-link-collection title="Modeling" :active="Request::is('modeling*')">
+    <x-slot name="icon">
+        <x-icons.heroicon-o-share class="w-4 h-4"/>
+    </x-slot>
 
-    <x-admin.layouts.sidebar-link-collection title="Modeling" :active="Request::is('modeling*')">
-        <x-slot name="icon">
-            <x-icons.heroicon-o-share class="w-4 h-4"/>
-        </x-slot>
+    <x-admin.layouts.sidebar-link-collection-item title="Ontologies"
+         href="" :active="Request::is('modeling/ontologies*')"/>
+    <x-admin.layouts.sidebar-link-collection-item title="Data Templates"
+         href="" :active="Request::is('modeling/data-templates*')"/>
 
-        <x-admin.layouts.sidebar-link-collection-item title="Ontologies"
-             href="" :active="Request::is('modeling/ontologies*')"/>
-        <x-admin.layouts.sidebar-link-collection-item title="Data Templates"
-             href="" :active="Request::is('modeling/data-templates*')"/>
+</x-admin.layouts.sidebar-link-collection>
+@endif
 
-    </x-admin.layouts.sidebar-link-collection>
+<x-admin.layouts.sidebar-link-collection title="Batch Imports" :active="Request::is('batch-imports*')">
+    <x-slot name="icon">
+        <x-icons.go-database-16 class="w-4 h-4"/>
+    </x-slot>
 
-    <x-admin.layouts.sidebar-link-collection title="Batch Imports" :active="Request::is('batch-imports*')">
-        <x-slot name="icon">
-            <x-icons.go-database-16 class="w-4 h-4"/>
-        </x-slot>
-
-        <x-admin.layouts.sidebar-link-collection-item title="Data Collections"
-                                                      href="" :active="Request::is('batch-imports/data-collections*')"/>
-        <x-admin.layouts.sidebar-link-collection-item title="Data Reports"
-                                                      href="" :active="Request::is('batch-imports/data-reports*')"/>
-    </x-admin.layouts.sidebar-link-collection>
+    <x-admin.layouts.sidebar-link-collection-item title="Data Collections"
+                                                  href="" :active="Request::is('batch-imports/data-collections*')"/>
+    <x-admin.layouts.sidebar-link-collection-item title="Data Reports"
+                                                  href="" :active="Request::is('batch-imports/data-reports*')"/>
+</x-admin.layouts.sidebar-link-collection>
 {{--    <x-admin.layouts.sidebar-link-collection :title="__j('Charities')" :active="false">--}}
 {{--        <x-slot name="icon">--}}
 {{--            <x-icons.heroicon-s-office-building class="w-4 h-4" viewBox="0 0 20 20"/>--}}
