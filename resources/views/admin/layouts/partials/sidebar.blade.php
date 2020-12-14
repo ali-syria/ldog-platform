@@ -39,15 +39,15 @@
     @endif
 
 @if(locale()->organization instanceof \AliSyria\LDOG\Contracts\OrganizationManager\ModellingOrganizationContract)
-<x-admin.layouts.sidebar-link-collection title="Modeling" :active="Request::is('modeling*')">
+<x-admin.layouts.sidebar-link-collection title="Modeling" :active="Request::is('admin/modelling*')">
     <x-slot name="icon">
         <x-icons.heroicon-o-share class="w-4 h-4"/>
     </x-slot>
 
     <x-admin.layouts.sidebar-link-collection-item title="Ontologies"
-         href="" :active="Request::is('modeling/ontologies*')"/>
+         href="{{ route('admin.ontologies.index') }}" :active="Request::is('admin/modelling/ontologies*')"/>
     <x-admin.layouts.sidebar-link-collection-item title="Data Templates"
-         href="" :active="Request::is('modeling/data-templates*')"/>
+         href="" :active="Request::is('modelling/data-templates*')"/>
 
 </x-admin.layouts.sidebar-link-collection>
 @endif

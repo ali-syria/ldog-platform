@@ -6,6 +6,7 @@ use App\Http\Livewire\Admin\Branches;
 use App\Http\Livewire\Admin\CabinetOrganizations;
 use App\Http\Livewire\Admin\Departments;
 use App\Http\Livewire\Admin\Instituations;
+use App\Http\Livewire\Admin\Ontologies;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Livewire\Auth\Passwords\Email;
@@ -66,6 +67,10 @@ Route::middleware('auth')->group(function () {
             ->name('instituations.index');
         Route::get('branches',Branches::class)
             ->name('branches.index');
+        Route::prefix('modelling')->group(function(){
+            Route::get('ontologies',Ontologies::class)
+                ->name('ontologies.index');
+        });
     });
 });
 
