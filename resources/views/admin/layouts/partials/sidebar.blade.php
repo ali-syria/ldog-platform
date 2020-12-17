@@ -47,7 +47,7 @@
     <x-admin.layouts.sidebar-link-collection-item title="Ontologies"
          href="{{ route('admin.ontologies.index') }}" :active="Request::is('admin/modelling/ontologies*')"/>
     <x-admin.layouts.sidebar-link-collection-item title="Data Templates"
-         href="" :active="Request::is('modelling/data-templates*')"/>
+         href="{{ route('admin.dataTemplates.index') }}" :active="Request::is('admin/modelling/data-templates*')"/>
 
 </x-admin.layouts.sidebar-link-collection>
 @endif

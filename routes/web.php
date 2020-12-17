@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Livewire\Admin\Branches;
 use App\Http\Livewire\Admin\CabinetOrganizations;
+use App\Http\Livewire\Admin\DataTemplates;
 use App\Http\Livewire\Admin\Departments;
 use App\Http\Livewire\Admin\Instituations;
 use App\Http\Livewire\Admin\Ontologies;
@@ -11,7 +12,6 @@ use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
-use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
 use Illuminate\Support\Facades\Route;
 
@@ -70,6 +70,8 @@ Route::middleware('auth')->group(function () {
         Route::prefix('modelling')->group(function(){
             Route::get('ontologies',Ontologies::class)
                 ->name('ontologies.index');
+            Route::get('data-templates',DataTemplates::class)
+                ->name('dataTemplates.index');
         });
     });
 });

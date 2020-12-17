@@ -10,7 +10,7 @@
             </x-components.create-button>
         </x-components.crud-toolbox>
 
-        <x-components.data-table class="lg:w-5/6">
+        <x-components.data-table class="lg:w-full">
             <x-slot name="head">
                 <tr>
                     <x-components.data-table-th class="text-left">Prefix</x-components.data-table-th>

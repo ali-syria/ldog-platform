@@ -7,7 +7,7 @@
     >
         @include('admin.layouts.partials.sidebar')
         <div class="flex flex-col flex-1 w-full">
-            @include('admin.layouts.partials.navbar')
+{{--            @include('admin.layouts.partials.navbar')--}}
             <main class="h-full overflow-y-auto">
                 <div class="container px-6 mx-auto grid">
                     @yield('content')
