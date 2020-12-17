@@ -2,6 +2,15 @@
 
 namespace App\Actions;
 
+use AliSyria\LDOG\Contracts\OrganizationManager\ModellingOrganizationContract;
+use AliSyria\LDOG\TemplateBuilder\DataCollectionTemplate;
+use AliSyria\LDOG\TemplateBuilder\ReportTemplate;
+use AliSyria\LDOG\Utilities\LdogTypes\DataDomain;
+use AliSyria\LDOG\Utilities\LdogTypes\DataExporterTarget;
+use AliSyria\LDOG\Utilities\LdogTypes\ReportExportFrequency;
+use App\Enums\DataTemplateType;
+use Illuminate\Http\UploadedFile;
+
 class StoreDataTemplateAction
 {
     /**
@@ -19,9 +28,23 @@ class StoreDataTemplateAction
      *
      * @return mixed
      */
-    public function execute()
+    public function execute(ModellingOrganizationContract $modellingOrganization,
+        DataTemplateType $dataTemplateType,string $label, string $description,DataDomain $dataDomain,
+        DataExporterTarget $dataExporterTarget,ReportExportFrequency $reportExportFrequency=null,
+        UploadedFile $dataShapeFile,UploadedFile $silkLslSpecsFile=null)
     {
-        // The business logic goes here.
+        $dataShape=null;
+        $silkLslSpecsString=null;
+        if($dataTemplateType->is(DataTemplateType::DATA_COLLECTION()))
+        {
+            DataCollectionTemplate::create($label,$label,$description,$dataShape,$modellingOrganization,
+                $dataExporterTarget,$dataDomain,$silkLslSpecsString);
+        }
+        elseif ($dataTemplateType->is(DataTemplateType::DATA_REPORT()))
+        {
+            ReportTemplate::create($label,$label,$description,$dataShape,$modellingOrganization,
+                $dataExporterTarget,$dataDomain,$reportExportFrequency,$silkLslSpecsString);
+        }
     }
 
     public function getSuccessMessage():string
