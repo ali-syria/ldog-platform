@@ -3,13 +3,17 @@
 namespace App\Actions;
 
 use AliSyria\LDOG\Contracts\OrganizationManager\ModellingOrganizationContract;
+use AliSyria\LDOG\ShapesManager\ShapeManager;
 use AliSyria\LDOG\TemplateBuilder\DataCollectionTemplate;
 use AliSyria\LDOG\TemplateBuilder\ReportTemplate;
+use AliSyria\LDOG\UriBuilder\UriBuilder;
 use AliSyria\LDOG\Utilities\LdogTypes\DataDomain;
 use AliSyria\LDOG\Utilities\LdogTypes\DataExporterTarget;
 use AliSyria\LDOG\Utilities\LdogTypes\ReportExportFrequency;
 use App\Enums\DataTemplateType;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class StoreDataTemplateAction
 {
@@ -33,8 +37,21 @@ class StoreDataTemplateAction
         DataExporterTarget $dataExporterTarget,ReportExportFrequency $reportExportFrequency=null,
         UploadedFile $dataShapeFile,UploadedFile $silkLslSpecsFile=null)
     {
-        $dataShape=null;
+        $shapeFileName=Str::random().'.ttl';
+        $shapePath=$dataShapeFile->storeAs('shapes',$shapeFileName,'public');
+        $shapeFullPath=Storage::disk('public')->path($shapePath);
+        $shapeUri=UriBuilder::convertAbsoluteFilePathToUrl($shapeFullPath);
+//        dd(ShapeManager::validateShape($shapeFullPath));
+        $dataShape=ShapeManager::importFromUrl($shapeUri,$dataDomain,$label);
+
         $silkLslSpecsString=null;
+        if($silkLslSpecsFile)
+        {
+            $slsFileName=Str::random().'.ttl';
+            $slsPath=$silkLslSpecsFile->storeAs('silk-sls',$slsFileName,'public');
+            $silkLslSpecsString=Storage::disk('public')->get($slsPath);
+        }
+
         if($dataTemplateType->is(DataTemplateType::DATA_COLLECTION()))
         {
             DataCollectionTemplate::create($label,$label,$description,$dataShape,$modellingOrganization,

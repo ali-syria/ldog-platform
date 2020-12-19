@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use AliSyria\LDOG\Facades\GS;
 use AliSyria\LDOG\UriBuilder\UriBuilder;
 use AliSyria\LDOG\Utilities\LdogTypes\DataDomain;
 use AliSyria\LDOG\Utilities\LdogTypes\DataExporterTarget;
@@ -107,6 +108,10 @@ class DataTemplates extends Component
             'report_export_frequency',
             'data_shape',
             'silk_sls',
+            'dataShapeUrl',
+            'dataShapeFileName',
+            'silkSlsUrl',
+            'silkSlsFileName'
         ]);
     }
     public function isCreateOpertion():bool
@@ -116,28 +121,11 @@ class DataTemplates extends Component
     public function store(StoreDataTemplateAction $action)
     {
         $this->validate();
-        $uri=null;
-        if($this->source==RdfSource::URL)
-        {
-            $this->uri=$this->url;
-        }
-        elseif ($this->source==RdfSource::FILE)
-        {
-            $fileName=Str::random().'.ttl';
-            $path=$this->rdf_file->storeAs('ontologies',$fileName,'public');
-            $fullPath=Storage::disk('public')->path($path);
-            $uri=UriBuilder::convertAbsoluteFilePathToUrl($fullPath);
-        }
-        elseif ($this->source==RdfSource::TEXT)
-        {
-            $fileName=Str::random().'.ttl';
-            Storage::disk('public')->put('ontologies/'.$fileName,$this->rdf_text);
-            $uri=UriBuilder::convertAbsoluteFilePathToUrl(Storage::disk('public')->path('ontologies/'.$fileName));
-        }
-
-        $action->execute(
-            DataDomain::find($this->data_domain),$this->prefix,$this->namespace,$this->description,$uri
-        );
+        $reportExportFrequency=$this->report_export_frequency?ReportExportFrequency::find($this->report_export_frequency):null;
+        $action->execute(locale()->organization,DataTemplateType::coerce($this->template_type),$this->title,$this->description,
+            DataDomain::find($this->data_domain),DataExporterTarget::find($this->export_target),
+            $reportExportFrequency,$this->data_shape,
+            $this->silk_sls);
 
         $this->resetInputFields();
         $this->resetValidation();
@@ -153,11 +141,28 @@ class DataTemplates extends Component
     }
     public function getExportTargetsProperty()
     {
-        return DataExporterTarget::all();
+        return locale()->organization->exportTargets();
     }
     public function getReportExportFrequenciesProperty()
     {
         return ReportExportFrequency::all();
+    }
+    public function getDataTemplatesProperty()
+    {
+        return locale()->organization->dataTemplates();
+    }
+    public function downloadShapeFile(string $shapeUri,string $label)
+    {
+        return response()->streamDownload(function()use($shapeUri){
+            echo GS::getConnection()->fetchNamedGraph($shapeUri,'text/turtle');
+        },"$label- data shape.ttl");
+    }
+    public function downloadSlsFile(string $slsSpecs,string $label)
+    {
+        $slsSpecs=base64_decode($slsSpecs);
+        return response()->streamDownload(function()use($slsSpecs){
+            echo $slsSpecs;
+        },"$label- silk sls.xml");
     }
 
     public function render()
