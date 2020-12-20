@@ -52,15 +52,15 @@
 </x-admin.layouts.sidebar-link-collection>
 @endif
 
-<x-admin.layouts.sidebar-link-collection title="Batch Imports" :active="Request::is('batch-imports*')">
+<x-admin.layouts.sidebar-link-collection title="Batch Imports" :active="Request::is('admin/batch-imports*')">
     <x-slot name="icon">
         <x-icons.go-database-16 class="w-4 h-4"/>
     </x-slot>
 
     <x-admin.layouts.sidebar-link-collection-item title="Data Collections"
-                                                  href="" :active="Request::is('batch-imports/data-collections*')"/>
+                                                  href="{{ route('admin.dataCollections.index') }}" :active="Request::is('admin/batch-imports/data-collections*')"/>
     <x-admin.layouts.sidebar-link-collection-item title="Data Reports"
-                                                  href="" :active="Request::is('batch-imports/data-reports*')"/>
+                                                  href="{{ route('admin.dataReports.index') }}" :active="Request::is('admin/batch-imports/data-reports*')"/>
 </x-admin.layouts.sidebar-link-collection>
 {{--    <x-admin.layouts.sidebar-link-collection :title="__j('Charities')" :active="false">--}}
 {{--        <x-slot name="icon">--}}

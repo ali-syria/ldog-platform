@@ -4,6 +4,9 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Livewire\Admin\Branches;
 use App\Http\Livewire\Admin\CabinetOrganizations;
+use App\Http\Livewire\Admin\DataCollectionImports;
+use App\Http\Livewire\Admin\DataImportWizard;
+use App\Http\Livewire\Admin\DataReportImports;
 use App\Http\Livewire\Admin\DataTemplates;
 use App\Http\Livewire\Admin\Departments;
 use App\Http\Livewire\Admin\Instituations;
@@ -72,6 +75,16 @@ Route::middleware('auth')->group(function () {
                 ->name('ontologies.index');
             Route::get('data-templates',DataTemplates::class)
                 ->name('dataTemplates.index');
+        });
+        Route::prefix('batch-imports')->group(function(){
+            Route::get('data-collections',DataCollectionImports::class)
+                ->name('dataCollections.index');
+            Route::get('data-reports',DataReportImports::class)
+                ->name('dataReports.index');
+            Route::get('data-collections/wizard',DataImportWizard::class)
+                ->name('dataCollections.wizard');
+            Route::get('data-reports/wizard',DataImportWizard::class)
+                ->name('dataReports.wizard');
         });
     });
 });

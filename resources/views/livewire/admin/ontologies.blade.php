@@ -1,4 +1,5 @@
 <div>
+    @section('title','Ontologies')
     <div class="mb-24">
         <x-components.page-header>
             <x-components.page-title>Ontologies</x-components.page-title>

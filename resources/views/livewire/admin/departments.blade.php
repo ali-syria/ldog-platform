@@ -1,4 +1,5 @@
 <div>
+    @section('title','Departments')
     <div class="mb-24">
         <x-components.page-header>
             <x-components.page-title>Departments</x-components.page-title>
