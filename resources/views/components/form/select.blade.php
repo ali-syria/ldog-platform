@@ -1,9 +1,9 @@
 <div>
-    <select class="form-select mt-1 block w-full" @if($lazyUpdate) wire:model.lazy @else wire:model.defer @endif="{{ $liveName }}">
+    <select class="form-select mt-1 block w-full" {{ $attributes }} @if($lazyUpdate) wire:model.lazy @else wire:model.defer @endif="{{ $liveName }}">
         @if($isItemsArray())
             <option value="">Select Option</option>
             @foreach($items as $key=>$text)
-                <option value="{{ $key }}">{{ $text }}</option>
+                <option value="{{ $useTextAsKey ?$text:$key }}">{{ $text }}</option>
             @endforeach
         @else
             <option value="">Select Option</option>

@@ -5,11 +5,12 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Livewire\Admin\Branches;
 use App\Http\Livewire\Admin\CabinetOrganizations;
 use App\Http\Livewire\Admin\DataCollectionImports;
-use App\Http\Livewire\Admin\DataImportWizard;
+use App\Http\Livewire\Admin\DataImportWizardInitialize;
 use App\Http\Livewire\Admin\DataReportImports;
 use App\Http\Livewire\Admin\DataTemplates;
 use App\Http\Livewire\Admin\Departments;
 use App\Http\Livewire\Admin\Instituations;
+use App\Http\Livewire\Admin\MapColumnsToPredicates;
 use App\Http\Livewire\Admin\Ontologies;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
@@ -81,10 +82,12 @@ Route::middleware('auth')->group(function () {
                 ->name('dataCollections.index');
             Route::get('data-reports',DataReportImports::class)
                 ->name('dataReports.index');
-            Route::get('data-collections/wizard',DataImportWizard::class)
+            Route::get('data-collections/wizard',DataImportWizardInitialize::class)
                 ->name('dataCollections.wizard');
-            Route::get('data-reports/wizard',DataImportWizard::class)
+            Route::get('data-reports/wizard',DataImportWizardInitialize::class)
                 ->name('dataReports.wizard');
+            Route::get('conversions/{conversion}/map-columns-predicates',MapColumnsToPredicates::class)
+                ->name('pipeline.mapColumnsToPredicates');
         });
     });
 });

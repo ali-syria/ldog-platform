@@ -15,6 +15,7 @@ class Select extends Component
     public string $value='name';
     public ?string $selected=null;
     public bool $lazyUpdate;
+    public bool $useTextAsKey;
     /**
      * Create a new component instance.
      *
@@ -24,7 +25,8 @@ class Select extends Component
      * @param array|collection $items
      */
     public function __construct(string $name,string $liveName=null,string $id=null,$items,
-         string $key='id',string $value='name',string $selected=null,$lazyUpdate=false)
+         string $key='id',string $value='name',string $selected=null,$lazyUpdate=false,
+         bool $useTextAsKey=false)
     {
         $this->name=$name;
         $this->liveName=$liveName ?? $name;
@@ -34,6 +36,7 @@ class Select extends Component
         $this->selected=$selected;
         $this->items=$items;
         $this->lazyUpdate=$lazyUpdate;
+        $this->useTextAsKey=$useTextAsKey;
     }
     public function isSelected($option)
     {
