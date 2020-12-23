@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use AliSyria\LDOG\PublishingPipeline\PublishingPipeline;
 use App\Actions\GenerateRawRdfAction;
+use App\Actions\NormalizationAction;
 use Livewire\Component;
 
 class MapColumnsToPredicates extends Component
@@ -47,10 +48,13 @@ class MapColumnsToPredicates extends Component
         return $attributes;
     }
 
-    public function handle(GenerateRawRdfAction $action)
+    public function handle(GenerateRawRdfAction $generateRawRdfAction,NormalizationAction $normalizationAction)
     {
         $this->validate();
-        $action->execute($this->pipeline,$this->formatMappings($this->mappings));
+        $generateRawRdfAction->execute($this->pipeline,$this->formatMappings($this->mappings));
+        $normalizationAction->execute($this->pipeline);
+
+        return redirect()->route('admin.pipeline.normalization',[$this->conversionId]);
     }
     private function formatMappings(array $mappings):array
     {

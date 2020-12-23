@@ -11,6 +11,7 @@ use App\Http\Livewire\Admin\DataTemplates;
 use App\Http\Livewire\Admin\Departments;
 use App\Http\Livewire\Admin\Instituations;
 use App\Http\Livewire\Admin\MapColumnsToPredicates;
+use App\Http\Livewire\Admin\Normalization;
 use App\Http\Livewire\Admin\Ontologies;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
@@ -88,6 +89,8 @@ Route::middleware('auth')->group(function () {
                 ->name('dataReports.wizard');
             Route::get('conversions/{conversion}/map-columns-predicates',MapColumnsToPredicates::class)
                 ->name('pipeline.mapColumnsToPredicates');
+            Route::get('conversions/{conversion}/normalization',Normalization::class)
+                ->name('pipeline.normalization');
         });
     });
 });
