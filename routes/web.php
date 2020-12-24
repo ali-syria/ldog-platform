@@ -13,6 +13,9 @@ use App\Http\Livewire\Admin\Instituations;
 use App\Http\Livewire\Admin\MapColumnsToPredicates;
 use App\Http\Livewire\Admin\Normalization;
 use App\Http\Livewire\Admin\Ontologies;
+use App\Http\Livewire\Admin\Publishing;
+use App\Http\Livewire\Admin\Reconciliation;
+use App\Http\Livewire\Admin\Validation;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Livewire\Auth\Passwords\Email;
@@ -91,6 +94,12 @@ Route::middleware('auth')->group(function () {
                 ->name('pipeline.mapColumnsToPredicates');
             Route::get('conversions/{conversion}/normalization',Normalization::class)
                 ->name('pipeline.normalization');
+            Route::get('conversions/{conversion}/reconciliation',Reconciliation::class)
+                ->name('pipeline.reconciliation');
+            Route::get('conversions/{conversion}/validation',Validation::class)
+                ->name('pipeline.validation');
+            Route::get('conversions/{conversion}/publishing',Publishing::class)
+                ->name('pipeline.publishing');
         });
     });
 });

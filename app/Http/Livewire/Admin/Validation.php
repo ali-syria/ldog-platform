@@ -5,7 +5,10 @@ namespace App\Http\Livewire\Admin;
 use AliSyria\LDOG\PublishingPipeline\PublishingPipeline;
 use Livewire\Component;
 
-class Normalization extends Component
+/**
+ * @property PublishingPipeline $pipeline
+ */
+class Validation extends Component
 {
     public string $conversionId='';
 
@@ -15,7 +18,7 @@ class Normalization extends Component
     }
     public function handle()
     {
-        return redirect()->route('admin.pipeline.reconciliation',[
+        return redirect()->route('admin.pipeline.publishing',[
             $this->conversionId
         ]);
     }
@@ -23,19 +26,11 @@ class Normalization extends Component
     {
         return PublishingPipeline::make($this->conversionId);
     }
-    public function getResourceNodesProperty()
-    {
-        return $this->pipeline->getResourceNodes();
-    }
-    public function getPredicatesProperty()
-    {
-        return $this->pipeline->getShapePredicates()->sortBy('order');
-    }
     public function render()
     {
-        return view('livewire.admin.normalization')
+        return view('livewire.admin.validation')
             ->layout('admin.layouts.wizard',[
-                'step'=>3
+                'step'=>5
             ]);
     }
 }
