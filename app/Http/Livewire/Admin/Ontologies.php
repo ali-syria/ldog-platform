@@ -111,7 +111,7 @@ class Ontologies extends Component
         $uri=null;
         if($this->source==RdfSource::URL)
         {
-            $this->uri=$this->url;
+            $uri=$this->url;
         }
         elseif ($this->source==RdfSource::FILE)
         {

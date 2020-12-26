@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Admin;
 
 use AliSyria\LDOG\PublishingPipeline\PublishingPipeline;
-use App\Actions\LinkToOthersAction;
 use App\Actions\PublishingAction;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -47,14 +46,12 @@ class Publishing extends Component
             $fromDate,$toDate);
 
     }
-    public function link(LinkToOthersAction $linkToOthersAction)
-    {
-        $linkToOthersAction->execute($this->pipeline);
-    }
+
     public function getPipelineProperty()
     {
         return PublishingPipeline::make($this->conversionId);
     }
+
     public function render()
     {
         return view('livewire.admin.publishing')

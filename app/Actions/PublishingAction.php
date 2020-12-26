@@ -9,14 +9,15 @@ use Carbon\Carbon;
 
 class PublishingAction
 {
+    public LinkToOthersAction $linkToOthersAction;
     /**
      * Create a new action instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(LinkToOthersAction $linkToOthersAction)
     {
-        // Prepare the action for execution, leveraging constructor injection.
+        $this->linkToOthersAction=$linkToOthersAction;
     }
 
     /**
@@ -28,5 +29,6 @@ class PublishingAction
         Carbon $fromDate=null,Carbon $toDate=null)
     {
         $pipeline->publish($organization,$employee,$fromDate,$toDate);
+        $this->linkToOthersAction->execute($pipeline);
     }
 }

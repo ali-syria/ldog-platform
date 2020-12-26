@@ -31,6 +31,14 @@ class Reconciliation extends Component
     {
         return PublishingPipeline::make($this->conversionId);
     }
+    public function getCsvColumnNamesProperty()
+    {
+        return $this->pipeline->getCsvColumnNames();
+    }
+    public function getPredicatesProperty()
+    {
+        return $this->pipeline->getShapePredicates()->sortBy('order');
+    }
     public function render()
     {
         return view('livewire.admin.reconciliation')
