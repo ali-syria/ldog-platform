@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use AliSyria\LDOG\PublishingPipeline\PublishingPipeline;
+use AliSyria\LDOG\UriBuilder\UriBuilder;
 use App\Actions\GenerateRawRdfAction;
 use App\Actions\NormalizationAction;
 use Livewire\Component;

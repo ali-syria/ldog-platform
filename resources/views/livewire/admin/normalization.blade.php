@@ -21,11 +21,15 @@
                 @foreach(collect($node->getProperties())->sortBy(function($property,$key){
             return optional($this->predicates->where('uri',$key)->first())->order;
 }) as $predicate=>$object)
-                    @if(!($object instanceof ML\JsonLD\TypedValue) || $predicate==AliSyria\LDOG\UriBuilder\UriBuilder::PREFIX_RDFS.'label')
+                    @if($predicate==AliSyria\LDOG\UriBuilder\UriBuilder::PREFIX_RDFS.'label' || $predicate=='@type')
                         @continue;
                     @endif
                     <td class="lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                        @if($object instanceof ML\JsonLD\TypedValue)
                         {{ $object->getValue() }}
+                        @else
+                            <a href="{{ $object->getId() }}" target="_blank">{{ $object->getId() }}</a>
+                        @endif
                     </td>
                 @endforeach
             </tr>
