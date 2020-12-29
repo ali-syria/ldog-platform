@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Admin;
 
 use AliSyria\LDOG\Facades\GS;
+use AliSyria\LDOG\ShaclValidator\ShaclValidationReport;
+use AliSyria\LDOG\ShapesManager\ShapeManager;
 use AliSyria\LDOG\UriBuilder\UriBuilder;
 use AliSyria\LDOG\Utilities\LdogTypes\DataDomain;
 use AliSyria\LDOG\Utilities\LdogTypes\DataExporterTarget;
@@ -10,6 +12,7 @@ use AliSyria\LDOG\Utilities\LdogTypes\ReportExportFrequency;
 use App\Actions\StoreDataTemplateAction;
 use App\Enums\DataTemplateType;
 use App\Enums\Operation;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -34,6 +37,9 @@ class DataTemplates extends Component
 
     public ?bool $isModalOpen=false;
     public string $operation=Operation::CREATE;
+
+    public bool $isValidShape=true;
+    private ?ShaclValidationReport $validatioReport=null;
 
     protected $rules=[
         'title'=>['required'],
@@ -120,11 +126,26 @@ class DataTemplates extends Component
     }
     public function store(StoreDataTemplateAction $action)
     {
+        $this->isValidShape=true;
         $this->validate();
         $reportExportFrequency=$this->report_export_frequency?ReportExportFrequency::find($this->report_export_frequency):null;
+        $shapeFileName=Str::random().'.ttl';
+        $shapePath=$this->data_shape->storeAs('shapes',$shapeFileName,'public');
+        $shapeFullPath=Storage::disk('public')->path($shapePath);
+        $validationReport=ShapeManager::validateShape($shapeFullPath);
+        if($validationReport->isConforms())
+        {
+            $this->isValidShape=true;
+        }
+        else
+        {
+            $this->isValidShape=false;
+            $this->validatioReport=$validationReport;
+            return;
+        }
         $action->execute(locale()->organization,DataTemplateType::coerce($this->template_type),$this->title,$this->description,
             DataDomain::find($this->data_domain),DataExporterTarget::find($this->export_target),
-            $reportExportFrequency,$this->data_shape,
+            $reportExportFrequency,$shapeFullPath,
             $this->silk_sls);
 
         $this->resetInputFields();
@@ -150,6 +171,10 @@ class DataTemplates extends Component
     public function getDataTemplatesProperty()
     {
         return locale()->organization->dataTemplates();
+    }
+    public function getValidationResultReportProperty()
+    {
+        return $this->validatioReport;
     }
     public function downloadShapeFile(string $shapeUri,string $label)
     {

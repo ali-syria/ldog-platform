@@ -35,13 +35,9 @@ class StoreDataTemplateAction
     public function execute(ModellingOrganizationContract $modellingOrganization,
         DataTemplateType $dataTemplateType,string $label, string $description,DataDomain $dataDomain,
         DataExporterTarget $dataExporterTarget,ReportExportFrequency $reportExportFrequency=null,
-        UploadedFile $dataShapeFile,UploadedFile $silkLslSpecsFile=null)
+        string $shapeFullPath,UploadedFile $silkLslSpecsFile=null)
     {
-        $shapeFileName=Str::random().'.ttl';
-        $shapePath=$dataShapeFile->storeAs('shapes',$shapeFileName,'public');
-        $shapeFullPath=Storage::disk('public')->path($shapePath);
         $shapeUri=UriBuilder::convertAbsoluteFilePathToUrl($shapeFullPath);
-//        dd(ShapeManager::validateShape($shapeFullPath));
         $dataShape=ShapeManager::importFromUrl($shapeUri,$dataDomain,$label);
 
         $silkLslSpecsString=null;

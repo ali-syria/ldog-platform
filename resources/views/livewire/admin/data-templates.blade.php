@@ -120,6 +120,14 @@
                     <x-form.file live-name="silk_sls" name="silk_sls"  :url="$silkSlsUrl" :fileName="$silkSlsFileName" mimeType="application/xml"/>
                 </div>
             </div>
+            @if(!$isValidShape)
+                <h2 class="text-2xl mt-4 text-red-700">Data Shape Errors:</h2>
+                <ul class="text-red-500">
+                    @foreach(optional($this->validationResultReport)->results() ?? [] as $result)
+                        <li>{{ $result->getMessage() }}</li>
+                    @endforeach
+                </ul>
+            @endif
         </x-slot>
         <x-slot name="buttons">
             <x-components.save-button live-target="store"/>
