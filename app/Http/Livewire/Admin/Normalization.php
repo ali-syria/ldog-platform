@@ -5,6 +5,9 @@ namespace App\Http\Livewire\Admin;
 use AliSyria\LDOG\PublishingPipeline\PublishingPipeline;
 use Livewire\Component;
 
+/**
+ * @property PublishingPipeline $pipeline
+ */
 class Normalization extends Component
 {
     public string $conversionId='';
