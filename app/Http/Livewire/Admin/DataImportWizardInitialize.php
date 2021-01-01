@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Admin;
 
 use AliSyria\LDOG\Contracts\TemplateBuilder\ReportTemplateContract;
 use App\Actions\InitializePublishingPipelineAction;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -17,6 +19,8 @@ class DataImportWizardInitialize extends Component
     public $fileUrl=null;
     public $fileName=null;
 
+    public string $cacheBaseKey='';
+
     protected $rules=[
         'data_template'=>['required',],
         'data_csv_file'=>['required','file']
@@ -26,6 +30,10 @@ class DataImportWizardInitialize extends Component
         'data_csv_file'=>'Data File(CSV)',
     ];
 
+    public function mount()
+    {
+        $this->cacheBaseKey=Str::random();
+    }
     public function updatedDataCsvFile()
     {
         $this->fileUrl="#";
@@ -40,18 +48,20 @@ class DataImportWizardInitialize extends Component
     }
     public function getDataTemplatesProperty()
     {
-        $templates=[];
-        foreach (locale()->organization->dataTemplatesForExport() as $exportTemplate)
-        {
-            $type="data collection";
-            if($exportTemplate instanceof ReportTemplateContract)
+        return Cache::remember($this->cacheBaseKey.'dataTemplates',120,function(){
+            $templates=[];
+            foreach (locale()->organization->dataTemplatesForExport() as $exportTemplate)
             {
-                $type="data report";
+                $type="data collection";
+                if($exportTemplate instanceof ReportTemplateContract)
+                {
+                    $type="data report";
+                }
+                $templates[$exportTemplate->uri]=$exportTemplate->label." ($type)";
             }
-            $templates[$exportTemplate->uri]=$exportTemplate->label." ($type)";
-        }
 
-        return $templates;
+            return $templates;
+        });
     }
     public function render()
     {

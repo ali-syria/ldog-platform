@@ -1,5 +1,5 @@
 <div wire:init="initialize">
-    <span wire:loading wire:target="initialize">Loading</span>
+    <span wire:loading wire:target="initialize">Loading ...</span>
 
     <div class="grid grid-cols-2 gap-4" x-data="{selectedPredicate:null}">
         <div>

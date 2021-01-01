@@ -2,12 +2,15 @@
 
 namespace App\Http\Livewire\Admin;
 
+use AliSyria\LDOG\PublishingPipeline\Predicate;
 use AliSyria\LDOG\PublishingPipeline\PublishingPipeline;
+use AliSyria\LDOG\ShaclValidator\ShaclValidationReport;
 use AliSyria\LDOG\UriBuilder\UriBuilder;
 use App\Actions\ValidationAction;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
+use ML\JsonLD\Node;
 use ML\JsonLD\TypedValue;
 
 /**
@@ -16,15 +19,46 @@ use ML\JsonLD\TypedValue;
 class Validation extends Component
 {
     public string $conversionId='';
-    public bool $hasFailedRecord=true;
+    public ?bool $hasFailedRecord=null;
     public string $cacheBaseKey='';
 
     public array $resourceProperties=[];
+    public ?string $focusNodeUri=null;
+    public ?string $errorMessage=null;
+    public ?string $failedPredicateUri=null;
+    public ?string $failedPredicateValue=null;
+    public ?int $occurences=null;
 
     public function mount(string $conversion)
     {
         $this->conversionId=$conversion;
         $this->cacheBaseKey="reconciliation.{$this->pipeline->id}";
+    }
+    public function initialize()
+    {
+        $this->validateNext();
+    }
+    public function apply()
+    {
+        $this->validateNext();
+    }
+    private function validateNext()
+    {
+        $validationReport=app(ValidationAction::class)->execute($this->pipeline);
+        if($validationReport->isConforms())
+        {
+            $this->hasFailedRecord=false;
+        }
+        else
+        {
+            $firstRsult=$validationReport->results()->first();dump($firstRsult);
+            $this->hasFailedRecord=true;
+            $this->focusNodeUri=$firstRsult->getFocusNode();
+            $this->errorMessage=$firstRsult->getMessage();
+            $this->failedPredicateUri=$firstRsult->getResultPath();
+            $this->failedPredicateValue=$firstRsult->getValue();
+            $this->occurences=$this->getValueOccurencesCount($this->failedPredicateUri,$this->failedPredicateValue);
+        }
     }
     public function handle(ValidationAction $action)
     {
@@ -35,7 +69,7 @@ class Validation extends Component
     }
     public function getFailedResourceProperty()
     {
-        $resource=$this->pipeline->getResourceNode('http://health.ldog.test/resoucre/health-facility/35');
+        $resource=$this->pipeline->getResourceNode($this->focusNodeUri);
 
         foreach ($resource->getProperties() as $predicate=>$object)
         {
@@ -44,16 +78,7 @@ class Validation extends Component
                 continue;
             }
 
-            if($object instanceof TypedValue)
-            {
-                $value=$object->getValue();
-            }
-            else
-            {
-                $value=$object->getId();
-            }
-
-            $this->resourceProperties[base64_encode($predicate)]=$value;
+            $this->resourceProperties[base64_encode($predicate)]=$this->valueOfObject($object);
         }
         return $resource;
     }
@@ -90,6 +115,21 @@ class Validation extends Component
         return Cache::remember($this->cacheBaseKey."predicates",3600,function(){
             return $this->pipeline->getShapePredicates()->sortBy('order');
         });
+    }
+    public function getValueOccurencesCount(string $predicate,string $value):int
+    {
+        return $this->pipeline->getObjectOccurencesCount($predicate,$value);
+    }
+    public function valueOfObject($object):?string
+    {
+        if($object instanceof TypedValue)
+        {
+            return $object->getValue();
+        }
+        else
+        {
+            return $object->getId();
+        }
     }
     public function render()
     {
