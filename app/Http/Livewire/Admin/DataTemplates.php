@@ -150,6 +150,7 @@ class DataTemplates extends Component
 
         $this->resetInputFields();
         $this->resetValidation();
+        $this->emit('refreshDataTemplates');
         $this->emit('success',$action->getSuccessMessage());
     }
     public function getDataTemplateTypesProperty()
@@ -168,26 +169,9 @@ class DataTemplates extends Component
     {
         return ReportExportFrequency::all();
     }
-    public function getDataTemplatesProperty()
-    {
-        return locale()->organization->dataTemplates();
-    }
     public function getValidationResultReportProperty()
     {
         return $this->validatioReport;
-    }
-    public function downloadShapeFile(string $shapeUri,string $label)
-    {
-        return response()->streamDownload(function()use($shapeUri){
-            echo GS::getConnection()->fetchNamedGraph($shapeUri,'text/turtle');
-        },"$label- data shape.ttl");
-    }
-    public function downloadSlsFile(string $slsSpecs,string $label)
-    {
-        $slsSpecs=base64_decode($slsSpecs);
-        return response()->streamDownload(function()use($slsSpecs){
-            echo $slsSpecs;
-        },"$label- silk sls.xml");
     }
 
     public function render()

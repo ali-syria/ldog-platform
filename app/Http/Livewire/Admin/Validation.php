@@ -51,7 +51,7 @@ class Validation extends Component
         }
         else
         {
-            $firstRsult=$validationReport->results()->first();dump($firstRsult);
+            $firstRsult=$validationReport->results()->first(); dump($validationReport->results()->skip(20)->take(20));
             $this->hasFailedRecord=true;
             $this->focusNodeUri=$firstRsult->getFocusNode();
             $this->errorMessage=$firstRsult->getMessage();
@@ -116,7 +116,7 @@ class Validation extends Component
             return $this->pipeline->getShapePredicates()->sortBy('order');
         });
     }
-    public function getValueOccurencesCount(string $predicate,string $value):int
+    public function getValueOccurencesCount(string $predicate,?string $value):int
     {
         return $this->pipeline->getObjectOccurencesCount($predicate,$value);
     }

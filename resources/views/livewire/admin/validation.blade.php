@@ -27,14 +27,12 @@
                         <td class="w-full lg:w-auto p-3 text-gray-800 border border-b block lg:table-cell relative lg:static">
                            <form wire:submit.prevent>
                             @php $object=$failedResourceProperties->filter(fn($value,$key)=>$key==$predicate->uri)->first(); @endphp
-                            @if(!$object)
-                                @continue
-                            @endif
+
                             @if($predicate==AliSyria\LDOG\UriBuilder\UriBuilder::PREFIX_RDFS.'label' || $predicate=='@type')
                                 @continue;
                             @endif
 
-                            @if($object instanceof ML\JsonLD\TypedValue)
+                            @if(!$predicate->isObjectPredicate())
                                 <x-form.input type="text" name="resourceProperties[{{ base64_encode($predicate->uri) }}]" live-name="resourceProperties.{{ base64_encode($predicate->uri) }}"/>
                             @else
                                 <x-form.select name="resourceProperties[{{ base64_encode($predicate->uri) }}]" live-name="resourceProperties.{{ base64_encode($predicate->uri) }}" :items="$this->shapeObjectPredicateClassResources->where('predicate',$predicate->uri)->first()->resources ?? []" key="uri" value="label" required />
