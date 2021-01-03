@@ -25,7 +25,6 @@
                             {{ $predicate->name }}
                         </td>
                         <td class="w-full lg:w-auto p-3 text-gray-800 border border-b block lg:table-cell relative lg:static">
-                           <form wire:submit.prevent>
                             @php $object=$failedResourceProperties->filter(fn($value,$key)=>$key==$predicate->uri)->first(); @endphp
 
                             @if($predicate==AliSyria\LDOG\UriBuilder\UriBuilder::PREFIX_RDFS.'label' || $predicate=='@type')
@@ -33,9 +32,9 @@
                             @endif
 
                             @if(!$predicate->isObjectPredicate())
-                                <x-form.input type="text" name="resourceProperties[{{ base64_encode($predicate->uri) }}]" live-name="resourceProperties.{{ base64_encode($predicate->uri) }}"/>
+                                <x-form.input type="text" name="correctValue" live-name="correctValue"/>
                             @else
-                                <x-form.select name="resourceProperties[{{ base64_encode($predicate->uri) }}]" live-name="resourceProperties.{{ base64_encode($predicate->uri) }}" :items="$this->shapeObjectPredicateClassResources->where('predicate',$predicate->uri)->first()->resources ?? []" key="uri" value="label" required />
+                                <x-form.select name="correctValue" live-name="correctValue" :items="$this->shapeObjectPredicateClassResources->where('predicate',$predicate->uri)->first()->resources ?? []" key="uri" value="label" required />
                             @endif
 
                             @if($failedPredicateUri==$predicate->uri)
@@ -63,11 +62,11 @@
                                                     Processing ...
                                                 </div>
                                             </button>
-                                            <button type="submit" wire:click.prevent="apply" wire:loading.attr="disabled" class="px-2 py-1 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple text-sm" style="background: #047481">
-                                                <div wire:loading.remove wire:target="apply">
+                                            <button type="submit" wire:click.prevent="applyAll" wire:loading.attr="disabled" class="px-2 py-1 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple text-sm" style="background: #047481">
+                                                <div wire:loading.remove wire:target="applyAll">
                                                     Apply All
                                                 </div>
-                                                <div wire:loading wire:target="apply">
+                                                <div wire:loading wire:target="applyAll">
                                                     Processing ...
                                                 </div>
                                             </button>
@@ -76,7 +75,6 @@
                                 </ul>
                             </dd>
                             @endif
-                           </form>
                         </td>
                     </tr>
                 @endforeach

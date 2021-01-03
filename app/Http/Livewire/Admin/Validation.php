@@ -20,6 +20,7 @@ class Validation extends Component
 {
     public string $conversionId='';
     public ?bool $hasFailedRecord=null;
+    public ?string $correctValue=null;
     public string $cacheBaseKey='';
 
     public array $resourceProperties=[];
@@ -40,6 +41,7 @@ class Validation extends Component
     }
     public function apply()
     {
+        $this->pipeline->updateObjectValue($this->failedResource,$this->failedPredicateUri,$this->failedPredicateValue,$this->correctValue);
         $this->validateNext();
     }
     private function validateNext()
@@ -51,7 +53,7 @@ class Validation extends Component
         }
         else
         {
-            $firstRsult=$validationReport->results()->first(); dump($validationReport->results()->skip(20)->take(20));
+            $firstRsult=$validationReport->results()->first();
             $this->hasFailedRecord=true;
             $this->focusNodeUri=$firstRsult->getFocusNode();
             $this->errorMessage=$firstRsult->getMessage();
@@ -59,6 +61,7 @@ class Validation extends Component
             $this->failedPredicateValue=$firstRsult->getValue();
             $this->occurences=$this->getValueOccurencesCount($this->failedPredicateUri,$this->failedPredicateValue);
         }
+        $this->correctValue=null;
     }
     public function handle(ValidationAction $action)
     {
