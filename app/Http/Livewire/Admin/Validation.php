@@ -44,12 +44,18 @@ class Validation extends Component
         $this->pipeline->updateObjectValue($this->failedResource,$this->failedPredicateUri,$this->failedPredicateValue,$this->correctValue);
         $this->validateNext();
     }
+    public function applyAll()
+    {
+        $this->pipeline->bulkUpdateObjectValues($this->failedPredicateUri,$this->failedPredicateValue,$this->correctValue);
+        $this->validateNext();
+    }
     private function validateNext()
     {
         $validationReport=app(ValidationAction::class)->execute($this->pipeline);
         if($validationReport->isConforms())
         {
             $this->hasFailedRecord=false;
+            $this->correctValue=null;
         }
         else
         {
@@ -59,13 +65,12 @@ class Validation extends Component
             $this->errorMessage=$firstRsult->getMessage();
             $this->failedPredicateUri=$firstRsult->getResultPath();
             $this->failedPredicateValue=$firstRsult->getValue();
+            $this->correctValue=$firstRsult->getValue();
             $this->occurences=$this->getValueOccurencesCount($this->failedPredicateUri,$this->failedPredicateValue);
         }
-        $this->correctValue=null;
     }
     public function handle(ValidationAction $action)
     {
-        dd($action->execute($this->pipeline)->results()->first());
         return redirect()->route('admin.pipeline.publishing',[
             $this->conversionId
         ]);
