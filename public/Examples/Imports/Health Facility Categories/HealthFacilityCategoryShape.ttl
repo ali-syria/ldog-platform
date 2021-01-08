@@ -1,0 +1,29 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ldog: <http://ldog.org/ontologies/2020/8/framework#> .
+@prefix hef: <http://www.semanticweb.org/asus/ontologies/2021/0/health-facility#> .
+@prefix : <http://gneral.data.ae/shape/health-facility-category-spape#> .
+
+:HealthFacilityCatgeoryShape a sh:NodeShape ;
+                     a ldog:DataShape ;
+                    #sh:closed true;
+                    #sh:ignoredProperties (rdf:type rdfs:label) ;
+                    sh:targetClass hef:HealthFacilityCategory ;
+                    ldog:resourceIdentifierProperty hef:name ;
+                    ldog:resourceLabelExpression "{name}" ;
+                    sh:property [
+                        sh:path hef:name ;
+                        sh:name "name" ;
+                        sh:description "category of the facility" ;
+                        sh:order 1 ;
+                        sh:datatype xsd:string;
+                        sh:minCount 1;
+                        sh:maxCount 1;
+                        sh:uniqueLang true ;
+                        sh:message "name field is required,string" ;
+                        ldog:normalizedBy ldog:Capitalize ;
+                    ] .
+
+                                                      

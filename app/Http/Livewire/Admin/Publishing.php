@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use AliSyria\LDOG\PublishingPipeline\PublishingPipeline;
 use App\Actions\PublishingAction;
+use App\Actions\UpdateIndexAction;
 use Carbon\Carbon;
 use Livewire\Component;
 
@@ -31,7 +32,7 @@ class Publishing extends Component
     {
         $this->conversionId=$conversion;
     }
-    public function handle(PublishingAction $publishingAction)
+    public function handle(PublishingAction $publishingAction,UpdateIndexAction $updateAction)
     {
         $fromDate=$this->fromDate;
         $toDate=$this->fromDate;
@@ -44,7 +45,7 @@ class Publishing extends Component
 
         $publishingAction->execute($this->pipeline,locale()->organization,locale()->employee,
             $fromDate,$toDate);
-
+        $updateAction->execute($this->pipeline);
     }
 
     public function getPipelineProperty()

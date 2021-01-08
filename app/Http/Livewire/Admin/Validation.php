@@ -6,6 +6,7 @@ use AliSyria\LDOG\PublishingPipeline\Predicate;
 use AliSyria\LDOG\PublishingPipeline\PublishingPipeline;
 use AliSyria\LDOG\ShaclValidator\ShaclValidationReport;
 use AliSyria\LDOG\UriBuilder\UriBuilder;
+use App\Actions\NormalizationAction;
 use App\Actions\ValidationAction;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
@@ -69,8 +70,10 @@ class Validation extends Component
             $this->occurences=$this->getValueOccurencesCount($this->failedPredicateUri,$this->failedPredicateValue);
         }
     }
-    public function handle(ValidationAction $action)
+    public function handle(ValidationAction $action,NormalizationAction $normalizationAction)
     {
+        $normalizationAction->execute($this->pipeline);
+
         return redirect()->route('admin.pipeline.publishing',[
             $this->conversionId
         ]);

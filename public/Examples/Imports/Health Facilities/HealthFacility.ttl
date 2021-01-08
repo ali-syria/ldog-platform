@@ -1,0 +1,173 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ldog: <http://ldog.org/ontologies/2020/8/framework#> .
+@prefix hef: <http://www.semanticweb.org/asus/ontologies/2021/0/health-facility#> .
+@prefix loc: <http://www.semanticweb.org/asus/ontologies/2021/0/location#> .
+@prefix con: <http://www.semanticweb.org/asus/ontologies/2021/0/contact-address#> .
+@prefix : <http://health.data.ae/shape/health-facility-spape#> .
+
+:HealthFacilityShape a sh:NodeShape ;
+                     a ldog:DataShape ;
+                    #sh:closed true;
+                    #sh:ignoredProperties (rdf:type rdfs:label) ;
+                    sh:targetClass hef:HealthFacility ;
+                    ldog:resourceIdentifierProperty hef:uniqueID ;
+                    ldog:resourceLabelExpression "health facility: {name},number: {unique id}" ;
+                    sh:property [
+                        sh:path hef:uniqueID ;
+                        sh:name "unique id" ;
+                        sh:description "facility unique id" ;
+                        sh:order 1 ;
+                        sh:datatype xsd:integer;
+                        sh:minCount 1;
+                        sh:maxCount 1;
+                        sh:message "unique id field is required,integer" ;
+                    ] ;
+                    sh:property [
+                        sh:path hef:name ;
+                        sh:name "name" ;
+                        sh:description "name of the facility" ;
+                        sh:order 2 ;
+                        sh:datatype xsd:string;
+                        sh:minCount 1;
+                        sh:maxCount 1;
+                        sh:uniqueLang true ;
+                        sh:message "name field is required,string" ;
+                        ldog:normalizedBy ldog:Capitalize ;
+                    ] ;
+                    sh:property [
+                        sh:path hef:category ;
+                        sh:name "category" ;
+                        sh:description "category of the facility" ;
+                        sh:order 3 ;
+                        sh:class hef:HealthFacilityCategory ;
+                        sh:minCount 1;
+                        sh:maxCount 1;
+                        sh:message "category field is required" ;
+                    ] ;
+                    sh:property [
+                        sh:path hef:subCategory ;
+                        sh:name "sub category" ;
+                        sh:description "sub category of the facility" ;
+                        sh:order 4 ;
+                        sh:class hef:HealthFacilitySubCategory ;
+                        sh:minCount 1;
+                        sh:maxCount 1;
+                        sh:message "sub category field is required" ;
+                    ] ;
+                    sh:property [
+                        sh:path hef:status ;
+                        sh:name "status" ;
+                        sh:description "license status of the facility" ;
+                        sh:order 5 ;
+                        sh:class hef:HealthFacilityStatus ;
+                        sh:minCount 0;
+                        sh:maxCount 1;
+                        sh:message "status field is required" ;
+                    ] ;
+                    sh:property [
+                        sh:path hef:expiryDate ;
+                        sh:name "expiry date" ;
+                        sh:description "license expiry date of the facility" ;
+                        sh:order 6 ;
+                        sh:datatype xsd:string;
+                        sh:minCount 0;
+                        sh:maxCount 1;
+                        sh:message "expiry date field: required,valid date format is " ;
+                    ] ;
+                    sh:property [
+                        sh:path loc:area ;
+                        sh:name "area" ;
+                        sh:description "area of emirate where facility is located" ;
+                        sh:order 7 ;
+                        sh:class loc:Area ;
+                        sh:minCount 0;
+                        sh:maxCount 1;
+                        sh:message "area field is required" ;
+                    ] ;
+                    sh:property [
+                        sh:path loc:address ;
+                        sh:name "address" ;
+                        sh:description "address of the facility, generale address, like:street,town" ;
+                        sh:order 8 ;
+                        sh:datatype xsd:string;
+                        sh:minCount 1;
+                        sh:maxCount 1;
+                        sh:uniqueLang true ;
+                        sh:message "address field is required,string" ;
+                    ] ;
+                    sh:property [
+                        sh:path loc:subAddress ;
+                        sh:name "sub address" ;
+                        sh:description "sub-address of the facility, precise address, like:building number" ;
+                        sh:order 9 ;
+                        sh:datatype xsd:string;
+                        sh:minCount 0;
+                        sh:maxCount 1;
+                        sh:uniqueLang true ;
+                        sh:message "sub-address field is required,string" ;
+                    ] ;
+                    sh:property [
+                        sh:path loc:postalCode ;
+                        sh:name "postal code" ;
+                        sh:description "postal code of the facility address" ;
+                        sh:order 10 ;
+                        sh:datatype xsd:string;
+                        sh:minCount 0;
+                        sh:maxCount 1;
+                        sh:message "invalid postal code" ;
+                    ] ;
+                    sh:property [
+                        sh:path con:email ;
+                        sh:name "email" ;
+                        sh:description "email of the facility" ;
+                        sh:order 11 ;
+                        sh:datatype xsd:string;
+                        sh:minCount 0;
+                        sh:maxCount 1;
+                        sh:message "invalid email" ;
+                    ] ;
+                    sh:property [
+                        sh:path con:telephone ;
+                        sh:name "telephone" ;
+                        sh:description "telephone of the facility" ;
+                        sh:order 12 ;
+                        sh:datatype xsd:string;
+                        sh:minCount 1;
+                        sh:maxCount 1;
+                        sh:message "telephone field format is" ;
+                    ] ;
+                    sh:property [
+                        sh:path con:website ;
+                        sh:name "website" ;
+                        sh:description "website of the facility" ;
+                        sh:order 13 ;
+                        sh:datatype xsd:anyURI;
+                        sh:minCount 0;
+                        sh:maxCount 1;
+                        sh:message "website field is url" ;
+                    ] ;
+                    sh:property [
+                        sh:path loc:latitude ;
+                        sh:name "latitude" ;
+                        sh:description "latitude of the facility" ;
+                        sh:order 14 ;
+                        sh:datatype xsd:string;
+                        sh:minCount 0;
+                        sh:maxCount 1;
+                        sh:message "invalid latitude" ;
+                    ] ;
+                    sh:property [
+                        sh:path loc:longitude ;
+                        sh:name "longitude" ;
+                        sh:description "longitude of the facility" ;
+                        sh:order 15 ;
+                        sh:datatype xsd:string;
+                        sh:minCount 0;
+                        sh:maxCount 1;
+                        sh:message "invalid longitude " ;
+                    ] .
+
+                                                      
