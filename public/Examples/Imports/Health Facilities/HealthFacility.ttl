@@ -154,9 +154,11 @@
                         sh:name "latitude" ;
                         sh:description "latitude of the facility" ;
                         sh:order 14 ;
-                        sh:datatype xsd:string;
+                        sh:datatype xsd:decimal;
                         sh:minCount 0;
                         sh:maxCount 1;
+                        sh:minInclusive 24.94760 ;
+                        sh:maxInclusive 25.29654 ;
                         sh:message "invalid latitude" ;
                     ] ;
                     sh:property [
@@ -164,9 +166,11 @@
                         sh:name "longitude" ;
                         sh:description "longitude of the facility" ;
                         sh:order 15 ;
-                        sh:datatype xsd:string;
+                        sh:datatype xsd:decimal;
                         sh:minCount 0;
                         sh:maxCount 1;
+                        sh:minInclusive 55.08255333 ;
+                        sh:maxInclusive 55.45416087 ;
                         sh:message "invalid longitude " ;
                     ] .
 

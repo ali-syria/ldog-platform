@@ -18,13 +18,23 @@
         <tbody>
         @foreach($this->resourceNodes as $node)
             <tr  class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-                @foreach(collect($node->getProperties())->sortBy(function($property,$key){
-            return optional($this->predicates->where('uri',$key)->first())->order;
-}) as $predicate=>$object)
-                    @if($predicate==AliSyria\LDOG\UriBuilder\UriBuilder::PREFIX_RDFS.'label' || $predicate=='@type')
+                @foreach($this->predicates as $predicate)
+
+                    @if($predicate->uri==AliSyria\LDOG\UriBuilder\UriBuilder::PREFIX_RDFS.'label' || $predicate->uri=='@type')
                         @continue;
                     @endif
+
+                    @php
+                        $object=collect($node->getProperties())->filter(function ($property,$key)use($predicate){
+                            return $key==$predicate->uri;
+                        })
+                        ->first();
+                    @endphp
                     <td class="lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                        @unless($object)
+                            @continue;
+                        @endunless
+
                         @if($object instanceof ML\JsonLD\TypedValue)
                         {{ $object->getValue() }}
                         @else

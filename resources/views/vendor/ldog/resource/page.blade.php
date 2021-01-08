@@ -15,6 +15,9 @@
         </thead>
         <tbody>
             @foreach($results as $result)
+                @if(in_array($result->property->getUri(),["http://www.w3.org/2002/07/owl#topObjectProperty","http://www.w3.org/2002/07/owl#topDataProperty"]))
+                    @continue
+                @endif
                 <tr>
                     <td>
                         <a href="{{ $result->property->getUri() }}">
