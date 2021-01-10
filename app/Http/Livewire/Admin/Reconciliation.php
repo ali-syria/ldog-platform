@@ -138,7 +138,7 @@ class Reconciliation extends Component
             $results=$this->shapeObjectPredicateClassResources
                 ->where('predicate',$predicate->uri)
                 ->first()
-                ->resources;
+                ->resources->sortBy('label');
         }
 
         return $results;

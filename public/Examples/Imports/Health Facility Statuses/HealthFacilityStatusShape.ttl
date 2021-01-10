@@ -23,7 +23,6 @@
                         sh:maxCount 1;
                         sh:uniqueLang true ;
                         sh:message "name field is required,string" ;
-                        ldog:normalizedBy ldog:Capitalize ;
+                        ldog:normalizedBy ldog:Uppercase ;
                     ] .
 
-                                                      

@@ -75,7 +75,8 @@
                         sh:datatype xsd:string;
                         sh:minCount 0;
                         sh:maxCount 1;
-                        sh:message "expiry date field: required,valid date format is " ;
+                        sh:message "expiry date field: valid date format is " ;
+                        ldog:normalizedBy ldog:DateISO8601 ;
                     ] ;
                     sh:property [
                         sh:path loc:area ;
@@ -85,18 +86,20 @@
                         sh:class loc:Area ;
                         sh:minCount 0;
                         sh:maxCount 1;
-                        sh:message "area field is required" ;
+                        sh:message "invalid area" ;
                     ] ;
                     sh:property [
                         sh:path loc:address ;
                         sh:name "address" ;
-                        sh:description "address of the facility, generale address, like:street,town" ;
+                        sh:description "address of the facility, general address, like:street,town" ;
                         sh:order 8 ;
                         sh:datatype xsd:string;
                         sh:minCount 1;
                         sh:maxCount 1;
+                        sh:minLength 4;
+                        sh:maxLength 500;
                         sh:uniqueLang true ;
-                        sh:message "address field is required,string" ;
+                        sh:message "address field is required,string,minLength 4,maxLength 500" ;
                     ] ;
                     sh:property [
                         sh:path loc:subAddress ;
@@ -107,7 +110,7 @@
                         sh:minCount 0;
                         sh:maxCount 1;
                         sh:uniqueLang true ;
-                        sh:message "sub-address field is required,string" ;
+                        sh:message "sub-address field is string" ;
                     ] ;
                     sh:property [
                         sh:path loc:postalCode ;
@@ -174,4 +177,3 @@
                         sh:message "invalid longitude " ;
                     ] .
 
-                                                      

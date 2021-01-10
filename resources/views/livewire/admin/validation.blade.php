@@ -67,6 +67,12 @@
                                     </li>
                                     <li class="pl-1 pr-2 py-1 flex items-center justify-between text-sm">
                                         <div class="ml-2">
+                                            <span class="font-semibold text-sm text-gray-500 pr-2">Required</span>
+                                            <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-gray-100 bg-gray-400 rounded-full">{{ $predicate->isRequired()?'Yes':'No' }}</span>
+                                        </div>
+                                    </li>
+                                    <li class="pl-1 pr-2 py-1 flex items-center justify-between text-sm">
+                                        <div class="ml-2">
                                             <button type="submit" wire:click.prevent="apply" wire:loading.attr="disabled" class="px-2 py-1 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple text-sm" style="background: #047481">
                                                 <div wire:loading.remove wire:target="apply">
                                                     Apply
