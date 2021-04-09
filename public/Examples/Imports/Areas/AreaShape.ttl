@@ -7,23 +7,22 @@
 @prefix : <http://gneral.data.ae/shape/area-spape#> .
 
 :AreaShape a sh:NodeShape ;
-                     a ldog:DataShape ;
-                    #sh:closed true;
-                    #sh:ignoredProperties (rdf:type rdfs:label) ;
-                    sh:targetClass loc:Area ;
-                    ldog:resourceIdentifierProperty loc:name ;
-                    ldog:resourceLabelExpression "{name}" ;
-                    sh:property [
-                        sh:path loc:name ;
-                        sh:name "name" ;
-                        sh:description "name of the area" ;
-                        sh:order 1 ;
-                        sh:datatype xsd:string;
-                        sh:minCount 1;
-                        sh:maxCount 1;
-                        sh:uniqueLang true ;
-                        sh:message "name field is required,string" ;
-                        ldog:normalizedBy ldog:Capitalize ;
-                    ] .
+           a ldog:DataShape ;
+    #sh:closed true;
+    #sh:ignoredProperties (rdf:type rdfs:label) ;
+    sh:targetClass loc:Area ;
+    ldog:resourceIdentifierProperty loc:name ;
+    ldog:resourceLabelExpression "{name}" ;
+    sh:property [
+        sh:path loc:name ;
+        sh:name "name" ;
+        sh:description "name of the area" ;
+        sh:order 1 ;
+        sh:datatype xsd:string;
+        sh:minCount 1;
+        sh:maxCount 1;
+        sh:uniqueLang true ;
+        sh:message "name field is required,string" ;
+        ldog:normalizedBy ldog:Capitalize ;
+    ] .
 
-                                                      

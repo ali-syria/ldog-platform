@@ -138,7 +138,7 @@
                         sh:description "telephone of the facility" ;
                         sh:order 12 ;
                         sh:datatype xsd:string;
-                        sh:minCount 1;
+                        sh:minCount 0;
                         sh:maxCount 1;
                         sh:message "telephone field format is" ;
                     ] ;
