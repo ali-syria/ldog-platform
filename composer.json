@@ -10,7 +10,9 @@
     "require": {
         "php": "^7.4",
         "alisyria/ldog-framework": "dev-master",
+        "asantibanez/livewire-charts": "^2.3",
         "bensampo/laravel-enum": "^3.1",
+        "bordercloud/sparql": "^2.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",

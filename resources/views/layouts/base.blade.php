@@ -26,11 +26,15 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         @stack('head')
+        @stack('css-scripts')
     </head>
 
     <body>
         @yield('body')
 
+        @stack('js-scripts')
+
         @livewireScripts
+        @livewireChartsScripts
     </body>
 </html>

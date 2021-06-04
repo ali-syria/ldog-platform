@@ -20,9 +20,11 @@
         "sass": "^1.29.0",
         "sass-loader": "^8.0.2",
         "tailwindcss": "^1.5",
-        "vue-template-compiler": "^2.6.12"
+        "vue-template-compiler": "^2.6.12",
+        "tailwindcss-responsive-embed": "^1.0.0"
     },
     "dependencies": {
+        "apexcharts": "^3.26.3",
         "jquery": "^3.5.1",
         "jquery-ui-sortable-npm": "^1.0.0",
         "lodash": "^4.17.20",

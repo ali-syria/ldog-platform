@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c3105089f62ddc49cfb95ccef9ddab5e",
+    "content-hash": "6b900a41420270795b08e835f0cf71b9",
     "packages": [
         {
             "name": "alisyria/ldog-framework",
@@ -70,6 +70,68 @@
             "transport-options": {
                 "relative": true
             }
+        },
+        {
+            "name": "asantibanez/livewire-charts",
+            "version": "v2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/asantibanez/livewire-charts.git",
+                "reference": "582ad340ddf0d138df67319073886f9314cccd0a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/asantibanez/livewire-charts/zipball/582ad340ddf0d138df67319073886f9314cccd0a",
+                "reference": "582ad340ddf0d138df67319073886f9314cccd0a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^7.0|^8.0",
+                "livewire/livewire": "^2.3",
+                "php": "^7.2|^7.3|^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0|^5.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Asantibanez\\LivewireCharts\\LivewireChartsServiceProvider"
+                    ],
+                    "aliases": {
+                        "LivewireCharts": "Asantibanez\\LivewireCharts\\LivewireChartsFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Asantibanez\\LivewireCharts\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrés Santibáñez",
+                    "email": "santibanez.andres@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Livewire Charts",
+            "homepage": "https://github.com/asantibanez/livewire-charts",
+            "keywords": [
+                "asantibanez",
+                "livewire-charts"
+            ],
+            "support": {
+                "issues": "https://github.com/asantibanez/livewire-charts/issues",
+                "source": "https://github.com/asantibanez/livewire-charts/tree/v2.3.0"
+            },
+            "time": "2021-02-12T05:29:24+00:00"
         },
         {
             "name": "asm89/stack-cors",
@@ -209,6 +271,64 @@
                 }
             ],
             "time": "2021-02-16T17:27:06+00:00"
+        },
+        {
+            "name": "bordercloud/sparql",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BorderCloud/SPARQL.git",
+                "reference": "bcb114b7af844325284b494f69c39fad719c01a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BorderCloud/SPARQL/zipball/bcb114b7af844325284b494f69c39fad719c01a4",
+                "reference": "bcb114b7af844325284b494f69c39fad719c01a4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-xml": "*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "clean/phpdoc-md": "^0.19.1",
+                "phpunit/phpunit": "^9.5"
+            },
+            "bin": [
+                "bin/query"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BorderCloud\\SPARQL\\": "src/",
+                    "BorderCloud\\SPARQL\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "CC-BY-SA-4.0"
+            ],
+            "authors": [
+                {
+                    "name": "Karima Rafes",
+                    "email": "karima.rafes@bordercloud.com",
+                    "homepage": "http://www.bordercloud.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Lib PHP very easy for SPARQL 1.1",
+            "homepage": "https://github.com/BorderCloud/SPARQL",
+            "keywords": [
+                "RDF",
+                "sparql"
+            ],
+            "support": {
+                "issues": "https://github.com/BorderCloud/SPARQL/issues",
+                "source": "https://github.com/BorderCloud/SPARQL/tree/2.1.0"
+            },
+            "time": "2021-05-14T15:51:47+00:00"
         },
         {
             "name": "brick/math",
@@ -8501,5 +8621,9 @@
         "php": "^7.4"
     },
     "platform-dev": [],
+    "platform-overrides": {
+        "ext-pcntl": "7.3",
+        "ext-posix": "7.3"
+    },
     "plugin-api-version": "2.0.0"
 }

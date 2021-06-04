@@ -125,6 +125,8 @@
       <path value="$PROJECT_DIR$/vendor/laminas/laminas-code" />
       <path value="$PROJECT_DIR$/vendor/hanneskod/classtools" />
       <path value="$PROJECT_DIR$/vendor/spatie/laravel-queueable-action" />
+      <path value="$PROJECT_DIR$/vendor/bordercloud/sparql" />
+      <path value="$PROJECT_DIR$/vendor/asantibanez/livewire-charts" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />

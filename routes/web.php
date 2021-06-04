@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Website\PocController;
 use App\Http\Livewire\Admin\Branches;
 use App\Http\Livewire\Admin\CabinetOrganizations;
 use App\Http\Livewire\Admin\DataCollectionImports;
@@ -35,6 +36,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome')->name('home');
+
+Route::get('poc',[PocController::class,'index'])
+    ->name('website.poc.index');
 
 Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
